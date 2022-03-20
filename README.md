@@ -15,10 +15,12 @@ Install the package manually for the time being.
 
 Add the following to your init file:
 
-    (defun flymake-chicken-init ()
-      (add-hook 'flymake-diagnostic-functions #'flymake-chicken-backend nil t))
+```emacs-lisp
+(defun flymake-chicken-init ()
+  (add-hook 'flymake-diagnostic-functions #'flymake-chicken-backend nil t))
 
-    (add-hook 'scheme-mode-hook #'flymake-chicken-init)
+(add-hook 'scheme-mode-hook #'flymake-chicken-init)
+```
 
 ## Customization
 
