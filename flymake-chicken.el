@@ -96,6 +96,7 @@
 
 (defvar-local flymake-chicken--process nil)
 
+;;;###autoload
 (defun flymake-chicken-backend (report-fn &rest _args)
   "Flymake backend for CHICKEN Scheme.
 This backend uses `flymake-chicken-command' to launch a process
