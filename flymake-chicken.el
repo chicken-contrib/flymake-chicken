@@ -56,12 +56,12 @@
   (rx bol "Warning: "))
 
 (defvar flymake-chicken-warning-or-error-rx
-  (rx bol (or "Warning" "Error") ": "))
+  (rx bol (or "Warning" "Error" "Syntax error") ": "))
 
 (defun flymake-chicken--parse-buffer ()
   (let (warnings)
     (goto-char (point-min))
-    (while (re-search-forward flymake-chicken-warning-rx nil t)
+    (while (re-search-forward flymake-chicken-warning-or-error-rx nil t)
       (let ((beg (match-beginning 0)))
         (forward-line 1)
         (if (looking-at-p flymake-chicken-warning-rx)
