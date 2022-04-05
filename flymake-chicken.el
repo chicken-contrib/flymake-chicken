@@ -51,12 +51,13 @@
   "Command executed to perform the syntax check."
   :group 'flymake-chicken
   :type '(repeat string))
+(put 'flymake-chicken-command 'risky-local-variable t)
 
 (defvar flymake-chicken-warning-rx
   (rx bol "Warning: "))
 
 (defvar flymake-chicken-warning-or-error-rx
-  (rx bol (or "Warning" "Error" "Syntax error") ": "))
+  (rx bol (or "Warning" "Error" "Syntax error" "Syntax error (import)") ": "))
 
 (defun flymake-chicken--parse-buffer ()
   (let (warnings)
