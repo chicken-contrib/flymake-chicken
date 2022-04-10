@@ -78,7 +78,8 @@
     (nreverse warnings)))
 
 (defvar flymake-chicken-warning-line-rx
-  (rx (or (: bol "Warning: (-:" (group-n 1 (+ (any "0-9"))) ")")
+  (rx (or (: bol (or "Warning" "Syntax error")
+             ": (-:" (group-n 1 (+ (any "0-9"))) ")")
           (: "In file `-:" (group-n 1 (+ (any "0-9"))) "',"))))
 
 (defun flymake-chicken--parse-output (source proc report-fn)
