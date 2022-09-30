@@ -105,7 +105,7 @@
                (end (cdr source-region))
                (type :warning))
           (push (flymake-make-diagnostic source beg end type warning) diags))))
-    (funcall report-fn (nreverse diags))))
+    (funcall report-fn diags)))
 
 (defvar-local flymake-chicken--process nil)
 
