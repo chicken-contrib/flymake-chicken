@@ -61,6 +61,12 @@
               (: "Syntax error (" (+ (not (any ")")))")"))
       ": "))
 
+(defvar flymake-chicken-csc-error-rx
+  (rx "Error: shell command terminated with non-zero exit status"
+      (+ (not (any ":")))
+      ":" (+ any)
+      "-verbose"))
+
 (defun flymake-chicken--parse-buffer ()
   (let (warnings)
     (goto-char (point-min))
@@ -76,7 +82,10 @@
                            (re-search-forward flymake-chicken-warning-or-error-rx nil t))
                          (match-beginning 0)
                        (point-max))))
-            (push (string-trim-right (buffer-substring beg end)) warnings)))))
+            (let ((warning (buffer-substring beg end)))
+              ;; avoid false positive from terminating csc error
+              (when (not (string-match-p flymake-chicken-csc-error-rx warning))
+                (push (string-trim-right warning) warnings)))))))
     (nreverse warnings)))
 
 (defvar flymake-chicken-warning-line-rx
