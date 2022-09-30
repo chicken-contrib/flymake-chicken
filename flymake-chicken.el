@@ -57,7 +57,9 @@
   (rx bol "Warning: "))
 
 (defvar flymake-chicken-warning-or-error-rx
-  (rx bol (or "Warning" "Error" "Syntax error" "Syntax error (import)") ": "))
+  (rx bol (or "Warning" "Error" "Syntax error"
+              (: "Syntax error (" (or "import" "module")")"))
+      ": "))
 
 (defun flymake-chicken--parse-buffer ()
   (let (warnings)
