@@ -11,7 +11,7 @@
 
 ;; Warning: redefinition of imported value binding: log
 
-;; Warning: (-:5) - assignment to imported value binding `log'
+;; Warning: (-:6) - assignment to imported value binding `log'
 
 ;; Warning: Invalid assignment
 ;;   At the toplevel,

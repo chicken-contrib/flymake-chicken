@@ -35,7 +35,7 @@
 
 
 ;; Warning: Invalid argument
-;;   In file `-:7',
+;;   In file `-:8',
 ;;   At the toplevel,
 ;;   In procedure call:
 

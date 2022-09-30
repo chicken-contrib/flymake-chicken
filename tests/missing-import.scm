@@ -8,12 +8,15 @@
 
 )
 
-;; Warning: reference to possibly unbound identifier `format'
-;; Warning:    suggesting one of:
-;; Warning:    (import chicken.format)
-;; Warning:    (import srfi-28)
+;; Error: Module `test' has unresolved identifiers
+;;   In file `-':
 
-;; Warning: reference to possibly unbound identifier `chop'
-;; Warning:    suggesting: `(import chicken.base)'
+;;   Unknown identifier `format'
+;;     On line 5
+;;   Suggestion: try importing one of these modules:
+;;     chicken.format
+;;     srfi-28
 
-;; Error: module unresolved: test
+;;   Unknown identifier `chop'
+;;     On line 7
+;;   Suggestion: try importing module `chicken.base'
