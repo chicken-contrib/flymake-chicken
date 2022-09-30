@@ -31,5 +31,3 @@
 ;;         <syntax>          (condition-case (/ 1 0) (exn () (print "Boom!")))
 ;;         <syntax>          (/ 1 0)
 ;;         <syntax>          (exn () (print "Boom!"))      <--
-
-;; Error: shell command terminated with non-zero exit status 17920: '/home/wasa/.chickens/5.2.0/bin/chicken' '-' -output-file 'a.c' -analyze-only -verbose

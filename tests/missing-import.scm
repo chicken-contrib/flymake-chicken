@@ -17,5 +17,3 @@
 ;; Warning:    suggesting: `(import chicken.base)'
 
 ;; Error: module unresolved: test
-
-;; Error: shell command terminated with non-zero exit status 256: '/home/wasa/.chickens/5.2.0/bin/chicken' '-' -output-file 'a.c' -analyze-only -verbose
