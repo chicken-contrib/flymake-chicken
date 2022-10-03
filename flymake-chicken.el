@@ -4,7 +4,7 @@
 
 ;; Author: Vasilij Schneidermann <mail@vasilij.de>
 ;; URL: https://depp.brause.cc/flymake-chicken
-;; Version: 0.0.1
+;; Version: 0.0.2
 ;; Package-Requires: ((emacs "26.1"))
 ;; Keywords: languages
 
