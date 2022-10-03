@@ -65,7 +65,7 @@
   (rx "Error: shell command terminated with non-zero exit status"
       (+ (not (any ":")))
       ":" (+ any)
-      "-verbose"))
+      "-analyze-only"))
 
 (defun flymake-chicken--parse-buffer ()
   (let (warnings)
