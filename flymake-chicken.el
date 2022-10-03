@@ -47,11 +47,38 @@
   :link '(custom-group-link :tag "Flymake" flymake)
   :prefix "flymake-chicken-")
 
-(defcustom flymake-chicken-command (list (executable-find "csc") "-Av" "-")
-  "Command executed to perform the syntax check."
+(defcustom flymake-chicken-csc-program "csc"
+  "Name or path to the CHICKEN Scheme compiler.
+
+Note that this customizable is considered risky as changing it to
+an unrelated program may result in execution of arbitrary OS
+commands."
+  :group 'flymake-chicken
+  :type 'string
+  :risky t)
+
+(defcustom flymake-chicken-csc-extra-args nil
+  "Extra arguments passed when invoking the CHICKEN Scheme compiler.
+
+Note that this customizable is considered risky as some of the
+supported arguments may result in execution of arbitrary OS
+commands."
+  :group 'flymake-chicken
+  :type '(repeat string)
+  :risky t)
+
+(defconst flymake-chicken-command-deprecation-message
+  "Customize `flymake-chicken-csc-program' or `flymake-chicken-csc-extra-args' instead of `flymake-chicken-command'.")
+(defvar flymake-chicken-command nil)
+(put 'flymake-chicken-command 'risky-local-variable t)
+(make-obsolete-variable 'flymake-chicken-command
+                         flymake-chicken-command-deprecation-message
+                        "0.0.2")
+
+(defcustom flymake-chicken-command-args nil
+  "Extra arguments passed to the compiler."
   :group 'flymake-chicken
   :type '(repeat string))
-(put 'flymake-chicken-command 'risky-local-variable t)
 
 (defvar flymake-chicken-warning-rx
   (rx bol "Warning: "))
@@ -112,11 +139,14 @@
 ;;;###autoload
 (defun flymake-chicken-backend (report-fn &rest _args)
   "Flymake backend for CHICKEN Scheme.
-This backend uses `flymake-chicken-command' to launch a process
-that is passed the current buffer's content via stdin. REPORT-FN
-is flymake's callback function."
-  (when (not (executable-find (car flymake-chicken-command)))
-    (error "`csc` executable not found. Customize `flymake-chicken-command'"))
+This backend uses `flymake-chicken-csc-program' and
+`flymake-chicken-csc-extra-args' to launch a process that is
+passed the current buffer's content via stdin. REPORT-FN is
+flymake's callback function."
+  (when (not (executable-find flymake-chicken-csc-program))
+    (user-error "Executable not found. Customize `flymake-chicken-csc-program'"))
+  (when flymake-chicken-command
+    (user-error "Deprecated use: %s" flymake-chicken-command-deprecation-message))
   (when (process-live-p flymake-chicken--process)
     (kill-process flymake-chicken--process))
 
@@ -129,7 +159,10 @@ is flymake's callback function."
              :noquery t
              :connection-type 'pipe
              :buffer (generate-new-buffer " *flymake-chicken*")
-             :command flymake-chicken-command
+             :command `(,flymake-chicken-csc-program
+                        ,@flymake-chicken-csc-extra-args
+                        "-Av"
+                        "-")
              :sentinel
              (lambda (proc _event)
                (when (eq 'exit (process-status proc))
